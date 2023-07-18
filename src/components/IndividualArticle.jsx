@@ -5,13 +5,21 @@ import { useParams } from "react-router-dom"
 
 const IndividualArticle = () => {
     const [article, setArticle] = useState({})
+    const [loading, setLoading] = useState(true)
     const { article_id } = useParams();
 
     useEffect(() => {
         getArticleById(article_id).then((articleData) => {
             setArticle(articleData);
+            setLoading(false);
         }); 
     }, [article_id]);
+
+    if (loading) {
+        return (
+            <h2>Article loading...</h2>
+        )
+    } else {
 
     return (
         <main className="individual-article">
@@ -22,9 +30,9 @@ const IndividualArticle = () => {
         <img className="individual-article-image" src={article.article_img_url} />
         <p>{article.body}</p>
         <p className="voteCounter"> Votes: {article.votes}</p>
-
         </main>
     )
+    }
 }
 
 export default IndividualArticle
