@@ -2,9 +2,8 @@ import React from "react";
 import { useEffect } from 'react'
 import { getArticles } from "./api"
 import { useState } from "react";
-
-
 import ArticleCard from "./ArticleCard"
+import { Link } from "react-router-dom";
 
 const Articles = (() => {
     const [articles, setArticles] = useState([])
@@ -22,7 +21,6 @@ const Articles = (() => {
             {articles.map((article)=> {
                 return <ArticleCard article={article} key={article.article_id} />
             } )}
-
         </section>
     )
 })

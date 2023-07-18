@@ -53,6 +53,25 @@
     padding: 5px;
   }
 
+  .individual-article {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    align-self: center;
+    padding: 30px;
+  }
+
+  .articleAuthor {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .individual-article-image {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .voteCounter {
+    padding-top: 20px;
+  }
   .home {
     display: flex;
     justify-content: center;
