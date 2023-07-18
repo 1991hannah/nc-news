@@ -2,8 +2,6 @@ import React from "react";
 import { useEffect } from 'react'
 import { getArticles } from "./api"
 import { useState } from "react";
-
-
 import ArticleCard from "./ArticleCard"
 
 const Articles = (() => {

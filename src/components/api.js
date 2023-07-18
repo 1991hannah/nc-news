@@ -7,3 +7,10 @@ export const getArticles = () => {
     })
 }
 
+export const getArticleById = (article_id) => {
+    return axios.get(`https://nc-news-nt0m.onrender.com/api/articles/${article_id}`)
+    .then((response) => {
+        return response.data.article;
+    })
+}
+

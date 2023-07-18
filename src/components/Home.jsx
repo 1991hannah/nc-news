@@ -1,12 +1,12 @@
+import { Route, Routes } from "react-router-dom"
 import React from "react";
-import { useState } from 'react'
 import Articles from "./Articles"
 
 
 const Home = (() => {
     return(
         <main className="home">
-        <Articles />
+        <h1>Home</h1>      
         </main>
     )
 })
