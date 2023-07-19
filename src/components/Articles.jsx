@@ -17,10 +17,15 @@ const Articles = (() => {
     })
 
     return(
-        <section className="card-container">
+        <section id="articles">
+        <h3>Sort by: </h3>
+        <button>Date</button>
+        <button></button>
+        <article className="card-container">
             {articles.map((article)=> {
                 return <ArticleCard article={article} key={article.article_id} />
             } )}
+        </article>
         </section>
     )
 })
