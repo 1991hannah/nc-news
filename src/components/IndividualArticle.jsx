@@ -1,37 +1,67 @@
 import React from "react";
 import { useState, useEffect } from 'react'
-import { getArticleById } from "./api"
+import { getArticleById, getCommentsByArticle } from "./api"
 import { useParams } from "react-router-dom"
+import CommentCard from "./CommentCard"
 
 const IndividualArticle = () => {
     const [article, setArticle] = useState({})
+    const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(true)
     const { article_id } = useParams();
 
+
     useEffect(() => {
-        getArticleById(article_id).then((articleData) => {
+        const promise1 = getArticleById(article_id)
+        const promise2 = getCommentsByArticle(article_id)
+        Promise.all([promise1, promise2])
+        .then(([articleData, commentData]) => {
             setArticle(articleData);
-            setLoading(false);
-        }); 
-    }, [article_id]);
+            setComments(commentData);
+            setLoading(false)
+        })
+    }, [article_id])
+
+    const articleCard = ((article) => {
+        return (
+            <section>
+            <h2 className="articleHeader">{article.title}</h2>
+            <h3 className="articleAuthor">by {article.author}</h3>
+            <p>{article.created_at}</p>
+            <p>Topic: {article.topic}</p>
+            <img className="individual-article-image" src={article.article_img_url} />
+            <p>{article.body}</p>
+            <p className="voteCounter"> Votes: {article.votes}</p>
+            </section>
+        )
+    })
 
     if (loading) {
         return (
             <h2>Article loading...</h2>
         )
-    } else {
-
-    return (
-        <main className="individual-article">
-        <h1 className="articleHeader">{article.title}</h1>
-        <h2 className="articleAuthor">by {article.author}</h2>
-        <p>{article.created_at}</p>
-        <p>Topic: {article.topic}</p>
-        <img className="individual-article-image" src={article.article_img_url} />
-        <p>{article.body}</p>
-        <p className="voteCounter"> Votes: {article.votes}</p>
-        </main>
-    )
+    } else if (comments.length !== 0) {
+        return (
+            <main className="individual-article">
+                {articleCard(article)}
+                <section className="comment-container">
+                <h3 className="comments-header">Comments</h3>
+                {comments.map((comment) => {
+                    return <CommentCard comment={comment} key={comment.comment_id} />
+                })}
+                </section>
+            </main>
+        )
+    } else if (comments.length === 0) {
+        return (
+            <main className="individual-article">
+                {articleCard(article)}
+                <section className="comment-container">
+                <h3 className="comments-header">Comments</h3>
+                <h2>No comments</h2>
+                </section>
+            </main>
+        )
     }
 }
 
