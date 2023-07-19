@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
     margin: 0;
+    font: Raleway;
   }
 
   .header {
@@ -68,7 +69,34 @@
     padding-top: 20px;
     padding-bottom: 20px;
   }
+  .comment-header {
+    align-self: center;
+  }
+  .comment-container {
+    padding-top: 30px;
+  }
 
+  .comment-card {
+    border: 2px solid rgb(152, 172, 242);
+    border-radius: 10px;
+    width: 800px;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 15px;
+    box-shadow: 2px 2px 5px rgb(127, 122, 196) ;
+  }
+
+  .comment-info li {
+    padding: 3px;
+    list-style: none;
+  }
+
+  .comment-info > li > #votes {
+    padding-top: 10px;
+  }
+  
   .voteCounter {
     padding-top: 20px;
   }
