@@ -20,3 +20,10 @@ export const getCommentsByArticle = (article_id) => {
         return response.data.comments;
     })
 }
+
+export const updateArticleVotes = (article_id, updateVotes) => {
+    return axios.patch(`https://nc-news-nt0m.onrender.com/api/articles/${article_id}`, updateVotes)
+    .then((response) => {
+        return response.data.article;
+    })
+}

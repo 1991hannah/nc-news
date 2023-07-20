@@ -1,30 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;500&family=Raleway:wght@200;400&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
+    font-family: "Poppins", sans-serif;
   }
 
-  .header {
-    background-color: rgb(107, 171, 255);
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
   .header-container {
     width: 100%;
     background-color: rgb(107, 171, 255);
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     align-items: center;
+    font-weight: 500;
+  }
+
+  .header {
+    padding: 20px;
   }
 
   .navbar {
     padding: 20px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: plum;
+    font-weight: 200;
+  }
+
+  .navlinks {
+    list-style: none;
+    display: inline-block;
+    padding: 10px 30px;
   }
 
   .article-card {
@@ -39,13 +45,16 @@
     box-shadow: 2px 2px 5px rgb(127, 122, 196) ;
   }
 
+  .article-header {
+    font-weight: 100001;
+  }
+
   .article-image {
     width: 300px;
   }
  
   .article-info {
     list-style: none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     align-self: center;
   }
   
@@ -54,19 +63,26 @@
   }
 
   .individual-article {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     align-self: center;
     padding: 30px;
+  }
+
+  .article-body {
+    padding-top: 20px;
   }
 
   .articleAuthor {
     padding-top: 20px;
     padding-bottom: 20px;
   }
-
+  .individual-article  {
+    border: 2px solid rgb(46, 50, 65);
+    border-radius: 10px;
+    margin: 20px;
+  }
   .individual-article-image {
     padding-top: 20px;
-    padding-bottom: 20px;
+    width: 80%;
   }
   .comment-header {
     align-self: center;
@@ -78,7 +94,7 @@
   .comment-card {
     border: 2px solid rgb(152, 172, 242);
     border-radius: 10px;
-    width: 800px;
+    width: 80%;
     margin: 10px;
     display: flex;
     flex-direction: row;
@@ -87,6 +103,9 @@
     box-shadow: 2px 2px 5px rgb(127, 122, 196) ;
   }
 
+  #votes {
+    margin-left: 20px;
+  }
   .comment-info li {
     padding: 3px;
     list-style: none;
@@ -94,10 +113,6 @@
 
   .comment-info > li > #votes {
     padding-top: 10px;
-  }
-
-  Navbar {
-    justify-content: center;
   }
   
   .voteCounter {

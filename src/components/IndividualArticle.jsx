@@ -1,15 +1,49 @@
 import React from "react";
 import { useState, useEffect } from 'react'
-import { getArticleById, getCommentsByArticle } from "./api"
+import { getArticleById, getCommentsByArticle, updateArticleVotes } from "./api"
 import { useParams } from "react-router-dom"
 import CommentCard from "./CommentCard"
 
 const IndividualArticle = () => {
+    const [error, setError] = useState(null)
     const [article, setArticle] = useState({})
     const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(true)
+    const [userVotes, setUserVotes] = useState(0);
+    const [buttonClick, setButtonClick] = useState(false);
     const { article_id } = useParams();
+    const [disabled, setDisabled] = useState(false);
 
+    function increaseVote(e) {
+        e.preventDefault()
+        const updateVotesBy = { inc_votes: 1 }
+        setUserVotes(1)
+        setDisabled(true)
+        updateArticleVotes(article_id, updateVotesBy)
+        .catch(({error}) => {
+        setUserVotes(0)
+        setError(true)
+        })
+    }
+
+    function reduceVote(e) {
+        e.preventDefault()
+        const updateVotesBy = { inc_votes: -1 }
+        setUserVotes(-1)
+        updateArticleVotes(article_id, updateVotesBy)
+        setDisabled(true)
+        .catch(({error}) => {
+            setUserVotes(0)
+            setError(true)
+    })
+}
+
+
+    if (error) {
+        return (
+            {error} && <p>Whoops! Something went wrong, please try again</p>
+        )
+    }
 
     useEffect(() => {
         const promise1 = getArticleById(article_id)
@@ -26,12 +60,18 @@ const IndividualArticle = () => {
         return (
             <section>
             <h2 className="articleHeader">{article.title}</h2>
-            <h3 className="articleAuthor">by {article.author}</h3>
+            <img className="individual-article-image" src={article.article_img_url} />
+            <h3 className="articleAuthor">By {article.author}</h3>
             <p>{article.created_at}</p>
             <p>Topic: {article.topic}</p>
-            <img className="individual-article-image" src={article.article_img_url} />
-            <p>{article.body}</p>
-            <p className="voteCounter"> Votes: {article.votes}</p>
+            <p className="article-body">{article.body}</p>
+            <p className="voteCounter">Votes: {article.votes + userVotes} </p>
+            <button className="button" aria-label="Like this comment" onClick={increaseVote}>
+                👍🏻
+            </button>
+            <button className="button" aria-label="Dislike this comment" onClick={reduceVote}>
+                👎🏻
+            </button>
             </section>
         )
     })
