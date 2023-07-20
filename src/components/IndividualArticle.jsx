@@ -8,8 +8,16 @@ const IndividualArticle = () => {
     const [article, setArticle] = useState({})
     const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(true)
+    const [userVotes, setUserVotes] = useState(0);
     const { article_id } = useParams();
 
+    const increaseVote = () => {
+        setUserVotes(1)
+    }
+
+    const reduceVote = () => {
+        setUserVotes(-1)
+    }
 
     useEffect(() => {
         const promise1 = getArticleById(article_id)
@@ -26,12 +34,18 @@ const IndividualArticle = () => {
         return (
             <section>
             <h2 className="articleHeader">{article.title}</h2>
-            <h3 className="articleAuthor">by {article.author}</h3>
+            <img className="individual-article-image" src={article.article_img_url} />
+            <h3 className="articleAuthor">By {article.author}</h3>
             <p>{article.created_at}</p>
             <p>Topic: {article.topic}</p>
-            <img className="individual-article-image" src={article.article_img_url} />
-            <p>{article.body}</p>
-            <p className="voteCounter"> Votes: {article.votes}</p>
+            <p className="article-body">{article.body}</p>
+            <p className="voteCounter">Votes: {article.votes + userVotes} </p>
+            <button aria-label="Like this comment" onClick={increaseVote}>
+                👍🏻
+            </button>
+            <button aria-label="Dislike this comment" onClick={reduceVote}>
+                👎🏻
+            </button>
             </section>
         )
     })
