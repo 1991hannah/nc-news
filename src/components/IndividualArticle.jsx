@@ -66,10 +66,10 @@ const IndividualArticle = () => {
             <p>Topic: {article.topic}</p>
             <p className="article-body">{article.body}</p>
             <p className="voteCounter">Votes: {article.votes + userVotes} </p>
-            <button class="button" aria-label="Like this comment" onClick={increaseVote}>
+            <button className="button" aria-label="Like this comment" onClick={increaseVote}>
                 👍🏻
             </button>
-            <button class="button" aria-label="Dislike this comment" onClick={reduceVote}>
+            <button className="button" aria-label="Dislike this comment" onClick={reduceVote}>
                 👎🏻
             </button>
             </section>
