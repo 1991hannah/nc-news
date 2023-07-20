@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from 'react'
-import { getArticleById, getCommentsByArticle } from "./api"
+import { getArticleById, getCommentsByArticle, updateArticleVotes } from "./api"
 import { useParams } from "react-router-dom"
 import CommentCard from "./CommentCard"
 
@@ -10,13 +10,22 @@ const IndividualArticle = () => {
     const [loading, setLoading] = useState(true)
     const [userVotes, setUserVotes] = useState(0);
     const { article_id } = useParams();
+    const [disabled, setDisabled] = useState(false);
 
-    const increaseVote = () => {
+    function increaseVote(e) {
+        e.preventDefault()
+        const updateVotesBy = { inc_votes: 1 }
         setUserVotes(1)
+        updateArticleVotes(article_id, updateVotesBy)
+        setDisabled(true)
     }
 
-    const reduceVote = () => {
+    function reduceVote(e) {
+        e.preventDefault()
+        const updateVotesBy = { inc_votes: -1 }
         setUserVotes(-1)
+        updateArticleVotes(article_id, updateVotesBy)
+        setDisabled(true)
     }
 
     useEffect(() => {
