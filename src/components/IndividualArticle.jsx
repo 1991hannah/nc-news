@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { getArticleById, getCommentsByArticle, updateArticleVotes } from "./api"
 import { useParams } from "react-router-dom"
 import CommentCard from "./CommentCard"
+import AddComment from "./AddComment";
 
 const IndividualArticle = () => {
     const [error, setError] = useState(null)
@@ -10,7 +11,6 @@ const IndividualArticle = () => {
     const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(true)
     const [userVotes, setUserVotes] = useState(0);
-    const [buttonClick, setButtonClick] = useState(false);
     const { article_id } = useParams();
     const [disabled, setDisabled] = useState(false);
 
@@ -21,8 +21,8 @@ const IndividualArticle = () => {
         setDisabled(true)
         updateArticleVotes(article_id, updateVotesBy)
         .catch(({error}) => {
-        setUserVotes(0)
-        setError(true)
+            setUserVotes(0)
+            setError(true)
         })
     }
 
@@ -30,14 +30,13 @@ const IndividualArticle = () => {
         e.preventDefault()
         const updateVotesBy = { inc_votes: -1 }
         setUserVotes(-1)
-        updateArticleVotes(article_id, updateVotesBy)
         setDisabled(true)
+        updateArticleVotes(article_id, updateVotesBy)
         .catch(({error}) => {
             setUserVotes(0)
             setError(true)
     })
 }
-
 
     if (error) {
         return (
@@ -66,12 +65,14 @@ const IndividualArticle = () => {
             <p>Topic: {article.topic}</p>
             <p className="article-body">{article.body}</p>
             <p className="voteCounter">Votes: {article.votes + userVotes} </p>
-            <button className="button" aria-label="Like this comment" onClick={increaseVote}>
+            <button disabled={disabled} className="button" aria-label="Like this comment" onClick={increaseVote}>
                 👍🏻
             </button>
-            <button className="button" aria-label="Dislike this comment" onClick={reduceVote}>
+            <button disabled={disabled} className="button" aria-label="Dislike this comment" onClick={reduceVote}>
                 👎🏻
             </button>
+            <p className="new-p">Add comment:</p>
+            <AddComment />
             </section>
         )
     })
