@@ -27,3 +27,10 @@ export const updateArticleVotes = (article_id, updateVotes) => {
         return response.data.article;
     })
 }
+
+export const addComment = (article_id, commentObj) => {
+    return axios.post(`https://nc-news-nt0m.onrender.com/api/articles/${article_id}/comments`, commentObj)
+    .then((response) => {
+        return response.data.article;
+    })
+}
